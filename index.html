@@ -2,14 +2,14 @@
 <html ng-app="ExampleApp">
   <head></head>
   <body ng-controller="ExampleController">
-    <table s-table class="s-table" ng-if="countries.length">
+    <table s-table class="s-table">
       <thead s-thead>
         <tr s-row>
           <th></th>
         </tr>
       </thead>
-      <tbody>
-        <tr></tr>
+      <tbody s-tbody>
+        <tr s-row ng-repeat="country in countries" item="country"></tr>
       </tbody>
     </table>
     <script type="application/javascript" src="./bower_components/angular/angular.js"></script>

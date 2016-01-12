@@ -30,16 +30,28 @@ angular.module('simple-table-directives', [])
   }
   
   function sTbody() {
-  }
-
-  function sRow() {
     return {
       restrict: "A",
       scope: {},
       replace: true,
       transclude: true,
+      template: "<tbody ng-transclude></tbody>",
+      link: function(scope, element, attributes, controller, transclude) {
+      }
+    };
+  }
+
+  function sRow() {
+    return {
+      restrict: "A",
+      scope: {
+        item: '='
+      },
+      replace: true,
+      transclude: true,
       template: "<tr ng-transclude></tr>",
       link: function(scope, element, attributes, controller, transclude) {
+        console.log(scope)
       }
     };
   }
