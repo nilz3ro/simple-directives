@@ -5,9 +5,12 @@
     <table s-table class="s-table" ng-if="countries.length">
       <thead s-table-head>
         <tr>
-          <td></td>
+          <th></th>
         </tr>
       </thead>
+      <tbody>
+        <tr s-row-repeat></tr>
+      </tbody>
     </table>
     <script type="application/javascript" src="./bower_components/angular/angular.js"></script>
     <script type="application/javascript" src="./src/simple-table-directives.js"></script>
