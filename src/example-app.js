@@ -1,3 +1,5 @@
 (function() {
-  angular.module('ExampleApp', []);
+  angular.module('ExampleApp', [
+      'simple-table-directives'
+    ]);
 })();
