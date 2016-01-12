@@ -2,13 +2,13 @@
 <html ng-app="ExampleApp">
   <head></head>
   <body ng-controller="ExampleController">
-    <s-table class="s-table">
-      <s-table-head>
+    <table s-table class="s-table" ng-if="countries.length">
+      <thead s-table-head>
         <tr>
-          <td>TEST</td>
+          <td></td>
         </tr>
-      </s-table-head>
-    </s-table>
+      </thead>
+    </table>
     <script type="application/javascript" src="./bower_components/angular/angular.js"></script>
     <script type="application/javascript" src="./src/simple-table-directives.js"></script>
     <script type="application/javascript" src="./src/example-app.js"></script>

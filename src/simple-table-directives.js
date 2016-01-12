@@ -1,10 +1,13 @@
+(function() {
 angular.module('simple-table-directives', [])
   .directive('sTable', sTable)
-  .directive('sTableHead', sTableHead);
+  .directive('sTableHead', sTableHead)
+  .directive('sTableBody', sTableBody)
+  .directive('sRowRepeat', sRowRepeat);
 
   function sTable() {
     return {
-      restrict: "E",
+      restrict: "A",
       scope: {}, 
       replace: true,
       transclude: true,
@@ -16,7 +19,7 @@ angular.module('simple-table-directives', [])
   
   function sTableHead() {
     return {
-      restrict: "E",
+      restrict: "A",
       scope: {}, 
       replace: true,
       transclude: true,
@@ -26,4 +29,9 @@ angular.module('simple-table-directives', [])
     };
   }
   
+  function sTableBody() {
+  }
 
+  function sRowRepeat() {
+  }
+})();
