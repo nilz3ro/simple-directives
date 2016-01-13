@@ -10,14 +10,17 @@ angular.module('simple-table-directives', [])
   function sTable() {
     return {
       restrict: "AE",
+      bindToController: true,
       scope: {
         sModelList: "="
       }, 
       replace: true,
       transclude: true,
       template: '<table class="s-table" ng-transclude></table>',
+      controller($scope, $element, $attrs) {
+      },
+      controllerAs: "sTableCtrl",
       link: function(scope, element, attributes, controller, transclude) {
-        console.log(scope.sModelList);
       }
     };
   }
@@ -28,8 +31,10 @@ angular.module('simple-table-directives', [])
       scope: false, 
       replace: true,
       transclude: true,
+      require: "^sTable",
       template: '<thead class="s-thead" ng-transclude></thead>',
-      link: function(scope, element, attributes, controller, transclude) {
+      link: function(scope, element, attributes, sTableCtrl, transclude) {
+        console.log(sTableCtrl)
       }
     };
   }
@@ -40,8 +45,11 @@ angular.module('simple-table-directives', [])
       scope: false, 
       replace: true,
       transclude: true,
+      require: "^sTable",
       template: "<tbody ng-transclude></tbody>",
-      link: function(scope, element, attributes, controller, transclude) {
+      link: function(scope, element, attributes, sTableCtrl, transclude) {
+        console.log(sTableCtrl)
+        console.log(scope)
       }
     };
   }
@@ -81,7 +89,6 @@ angular.module('simple-table-directives', [])
       template: "<td ng-transclude></td>",
       link: function(scope, element, attributes, controller, transclude) {
         scope.sModel = scope.$parent.sModel;
-        console.log(scope.sModel)
       }
     };
   }
