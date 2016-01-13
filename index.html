@@ -15,11 +15,16 @@
           </s-row>
         </s-thead>
         <s-tbody>
-          <s-row ng-repeat="country in countries" s-row-model="country">
-            <s-cell><h4>{{model.name}}</h4></s-cell>
-              <s-cell><a href="http://{{model.code}}.com">{{model.code}} {{countries.length}}</a><p>yo</p></s-cell>
-            <s-cell>{{model.Dial}}</s-cell>
+          <s-row>
+            <s-cell>One</s-cell>
+            <s-cell>Extra</s-cell>
+            <s-cell>Row</s-cell>
           </s-row>
+          <s-row-repeat>
+            <s-cell>{{model.name}}</s-cell>
+            <s-cell>{{model.code}}</s-cell>
+            <s-cell><p>{{model.dial}}</p><button ng-click="myAction(model)">Click to alert</button></s-cell>
+          </s-row-repeat>
         </s-tbody>
       </s-table>
     </section>

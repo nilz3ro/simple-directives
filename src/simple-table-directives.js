@@ -82,11 +82,12 @@
         scope: false,
         transclude: true,
         require: "^sTable",
-        template: '<s-row ng-repeat="model in sModelList" s-row-model="model"><ng-transclude></ng-transclude></s-row>',
+        template: '<s-row class="s-row-repeat" ng-repeat="model in sModelList" s-row-model="model"><ng-transclude></ng-transclude></s-row>',
         controller: function($scope, $element, $attrs) {
         },
         link: function(scope, element, attributes, sTableCtrl, transclude) {
           scope.sModelList = sTableCtrl.sModelList;
+          element.replaceWith(element.contents())
         }
       };
     }
