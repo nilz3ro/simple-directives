@@ -69,16 +69,11 @@
         template: '<tr class="s-row" ng-transclude></tr>',
         controller: function($scope, $element, $attrs, $transclude) {
           this.sRowModel = $scope.sRowModel;
-          console.log($scope.myAction)
         },
         link: function(scope, element, attributes, controller, transclude) {
-                console.log(transclude.isSlotFilled('xCell'))
-             transclude(function(content, originalScope) {
-               // console.log(originalScope, element, content)
               if(element.children().hasClass('s-ghost-transclude')) {
                   element.children().replaceWith(element.children().contents())
                 }
-              }) 
         }
       };
     }
@@ -87,16 +82,14 @@
       return {
         restrict: "AE",
         scope: false,
-        transclude: {
-          xCell: 'sCell'
-        },
+        transclude: true, 
         require: "^sTable",
-        template: '<s-row class="s-row-repeat" ng-repeat="model in sModelList" s-row-model="model"><div class="s-ghost-transclude" ng-transclude-slot="xCell"></div></s-row>',
+        template: '<s-row class="s-row-repeat" ng-repeat="model in sModelList" s-row-model="model"><div class="s-ghost-transclude" ng-transclude></div></s-row>',
         controller: function($scope, $element, $attrs) {
         },
         link: function(scope, element, attributes, sTableCtrl, transclude) {
           scope.sModelList = sTableCtrl.sModelList;
-          // element.replaceWith(element.contents())
+          element.replaceWith(element.contents())
         }
       };
     }
@@ -106,6 +99,7 @@
         restrict: "AE",
         scope: {}, 
         replace: true,
+        require: "^sTable",
         transclude: true,
         template: '<th class="s-column" ng-transclude></th>',
         link: function(scope, element, attributes, controller, transclude) {
