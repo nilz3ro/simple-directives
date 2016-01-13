@@ -69,7 +69,7 @@
         require: "^sTable",
         template: '<tr class="s-row" ng-transclude></tr>',
         controller: function($scope, $element, $attrs) {
-          console.log($scope.sRowModel);
+          this.sRowModel = $scope.sRowModel;
         },
         link: function(scope, element, attributes, controller, transclude) {
         }
@@ -80,8 +80,9 @@
       return {
         restrict: "AE",
         scope: false,
+        transclude: true,
         require: "^sTable",
-        template: '<s-row ng-repeat="model in sModelList" s-row-model="model"></s-row>',
+        template: '<s-row ng-repeat="model in sModelList" s-row-model="model"><ng-transclude></ng-transclude></s-row>',
         controller: function($scope, $element, $attrs) {
         },
         link: function(scope, element, attributes, sTableCtrl, transclude) {
