@@ -24,7 +24,11 @@
         }
       };
     }
-    
+    // TODO
+    // all dependant directives should
+    // have databound access to the table model list
+    // (sModelList)
+ 
     function sThead() {
       return {
         restrict: "AE",
@@ -66,6 +70,12 @@
         link: function(scope, element, attributes, controller, transclude) {
         }
       };
+    }
+
+    function sRowRepeat() {
+      // TODO
+      // repeat for each model object
+      // in table sModelList
     }
    
     function sColumn() {
