@@ -1,2 +1,2 @@
-# simple-table-materials
-All the materials you need to build declarative tables with angular and material design.
+# simple-table-directives
+## Simple and effective table component directives in angular.
