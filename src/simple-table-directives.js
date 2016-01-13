@@ -4,6 +4,7 @@
     .directive('sThead', sThead)
     .directive('sTbody', sTbody)
     .directive('sRow', sRow)
+    .directive('sRowRepeat', sRowRepeat)
     .directive('sColumn', sColumn)
     .directive('sCell', sCell);
 
@@ -38,7 +39,6 @@
         require: "^sTable",
         template: '<thead class="s-thead" ng-transclude></thead>',
         link: function(scope, element, attributes, sTableCtrl, transclude) {
-          console.log(sTableCtrl)
         }
       };
     }
@@ -50,10 +50,10 @@
         replace: true,
         transclude: true,
         require: "^sTable",
+        controller: function($scope, $element, $attrs) {},
         template: '<tbody class="s-tbody" ng-transclude></tbody>',
         link: function(scope, element, attributes, sTableCtrl, transclude) {
-          console.log(sTableCtrl)
-          console.log(scope)
+          scope.sModelList = sTableCtrl.sModelList;
         }
       };
     }
@@ -66,16 +66,28 @@
         },
         transclude: true,
         replace: true,
+        require: "^sTable",
         template: '<tr class="s-row" ng-transclude></tr>',
+        controller: function($scope, $element, $attrs) {
+          console.log($scope.sRowModel);
+        },
         link: function(scope, element, attributes, controller, transclude) {
         }
       };
     }
 
     function sRowRepeat() {
-      // TODO
-      // repeat for each model object
-      // in table sModelList
+      return {
+        restrict: "AE",
+        scope: false,
+        require: "^sTable",
+        template: '<s-row ng-repeat="model in sModelList" s-row-model="model"></s-row>',
+        controller: function($scope, $element, $attrs) {
+        },
+        link: function(scope, element, attributes, sTableCtrl, transclude) {
+          scope.sModelList = sTableCtrl.sModelList;
+        }
+      };
     }
    
     function sColumn() {
@@ -96,9 +108,10 @@
         scope: false, 
         replace: true,
         transclude: true,
+        require: "^sRow",
         template: '<td class="s-cell" ng-transclude></td>',
-        link: function(scope, element, attributes, controller, transclude) {
-          scope.model = scope.$parent.sRowModel;
+        link: function(scope, element, attributes, sRowCtrl, transclude) {
+          scope.model = sRowCtrl.sRowModel;
         }
       };
     }
