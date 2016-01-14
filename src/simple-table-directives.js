@@ -18,15 +18,14 @@
         transclude: true,
         template: '<table class="s-table" ng-transclude></table>',
         controller($scope, $element, $attrs) {
+          $scope.$watch('sModelList', function(oldVal, newVal) {
+            console.log(oldVal, newVal)
+          })
         },
         link: function() {
         }
       };
     }
-    // TODO
-    // all dependant directives should
-    // have databound access to the table model list
-    // (sModelList)
  
     function sThead() {
       return {
@@ -71,9 +70,6 @@
         require: "^sTable",
         template: '<tr class="s-row" ng-transclude></tr>',
         controller: function($scope, $element, $attrs, $transclude) {
-          this.getRowModel = function() {
-            return $scope.sRowModel;
-          };
         },
         link: function(scope, element, attributes, controller, transclude) {
               if(element.children().hasClass('s-ghost-transclude')) {
@@ -120,9 +116,9 @@
         require: "^sRow",
         template: '<td class="s-cell" ng-transclude></td>',
         controller: function($scope) {
+          $scope.model = $scope.$parent.sRowModel;
         },
         link: function(scope, element, attributes, sRowCtrl, transclude) {
-          scope.model = sRowCtrl.getRowModel();
         }
       };
     }
