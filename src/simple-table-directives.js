@@ -8,7 +8,7 @@
     .directive('sColumn', sColumn)
     .directive('sCell', sCell);
 
-    function sTable() {
+    function sTable($q) {
       return {
         restrict: "AE",
         scope: {
@@ -18,11 +18,21 @@
         transclude: true,
         template: '<table class="s-table" ng-transclude></table>',
         controller($scope, $element, $attrs) {
-          $scope.$watch('sModelList', function(oldVal, newVal) {
-            console.log(oldVal, newVal)
-          })
+          var sTableCtrl = this;
+          sTableCtrl.sModelList = $scope.sModelList;
+          sTableCtrl.columns = [];
+          sTableCtrl.testName = "string";
+          
+          sTableCtrl.reOrderBy = function(field, reversed) {
+            sTableCtrl.sOrderBy = field;
+            sTableCtrl.sOrderReverse = reversed;
+            $scope.$apply();
+          };
         },
-        link: function() {
+        require: "?sTable",
+        controllerAs: 'sTableCtrl',
+        link: function(scope, element, attributes, controller, transclude) {
+          console.log(controller)
         }
       };
     }
@@ -36,9 +46,10 @@
         require: "^sTable",
         controller: function($scope, $element, $attrs) {
           $scope.sModelList = $scope.$parent.sModelList;
+          $scope.sTableCtrl = $scope.$parent.sTableCtrl;
         },
         template: '<thead class="s-thead" ng-transclude></thead>',
-        link: function(scope, element, attributes, sTableCtrl, transclude) {
+        link: function(scope, element, attributes, controller, transclude) {
         }
       };
     }
@@ -54,7 +65,7 @@
           $scope.sModelList = $scope.$parent.sModelList;
         },
         template: '<tbody class="s-tbody" ng-transclude></tbody>',
-        link: function(scope, element, attributes, sTableCtrl, transclude) {
+        link: function(scope, element, attributes, controller, transclude) {
         }
       };
     }
@@ -70,6 +81,7 @@
         require: "^sTable",
         template: '<tr class="s-row" ng-transclude></tr>',
         controller: function($scope, $element, $attrs, $transclude) {
+          $scope.sTableCtrl = $scope.$parent.sTableCtrl;
         },
         link: function(scope, element, attributes, controller, transclude) {
               if(element.children().hasClass('s-ghost-transclude')) {
@@ -79,6 +91,7 @@
       };
     }
 
+    // TODO refactor this, transclusion scope is weird.
     function sRowRepeat() {
       return {
         restrict: "AE",
@@ -89,7 +102,7 @@
         controller: function($scope, $element, $attrs) {
           $scope.sModelList = $scope.$parent.sModelList;
         },
-        link: function(scope, element, attributes, sTableCtrl, transclude) {
+        link: function(scope, element, attributes, controller, transclude) {
         }
       };
     }
@@ -97,12 +110,27 @@
     function sColumn() {
       return {
         restrict: "AE",
-        scope: {}, 
+        scope: false,
         replace: true,
         require: "^sTable",
         transclude: true,
+        controller: function($scope, $element, $attrs) {
+        },
         template: '<th class="s-column" ng-transclude></th>',
         link: function(scope, element, attributes, controller, transclude) {
+          controller.columns.push([element, attributes])
+          var sortOrder = false;
+          element.on('click', function(event) {
+            controller.reOrderBy(attributes.sOrderBy, sortOrder);
+            if(sortOrder) {
+              element.removeClass("descending")
+              element.addClass("ascending")
+            } else {
+              element.removeClass("ascending")
+              element.addClass("descending")
+            }
+            sortOrder = !sortOrder;
+          })
         }
       };
     }
