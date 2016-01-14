@@ -11,7 +11,6 @@
     function sTable() {
       return {
         restrict: "AE",
-        bindToController: true,
         scope: {
           sModelList: "="
         }, 
@@ -20,8 +19,7 @@
         template: '<table class="s-table" ng-transclude></table>',
         controller($scope, $element, $attrs) {
         },
-        controllerAs: "sTableCtrl",
-        link: function(scope, element, attributes, controller, transclude) {
+        link: function() {
         }
       };
     }
@@ -37,6 +35,9 @@
         replace: true,
         transclude: true,
         require: "^sTable",
+        controller: function($scope, $element, $attrs) {
+          $scope.sModelList = $scope.$parent.sModelList;
+        },
         template: '<thead class="s-thead" ng-transclude></thead>',
         link: function(scope, element, attributes, sTableCtrl, transclude) {
         }
@@ -50,7 +51,9 @@
         replace: true,
         transclude: true,
         require: "^sTable",
-        controller: function($scope, $element, $attrs) {},
+        controller: function($scope, $element, $attrs) {
+          $scope.sModelList = $scope.$parent.sModelList;
+        },
         template: '<tbody class="s-tbody" ng-transclude></tbody>',
         link: function(scope, element, attributes, sTableCtrl, transclude) {
         }
@@ -68,7 +71,9 @@
         require: "^sTable",
         template: '<tr class="s-row" ng-transclude></tr>',
         controller: function($scope, $element, $attrs, $transclude) {
-          this.sRowModel = $scope.sRowModel;
+          this.getRowModel = function() {
+            return $scope.sRowModel;
+          };
         },
         link: function(scope, element, attributes, controller, transclude) {
               if(element.children().hasClass('s-ghost-transclude')) {
@@ -86,10 +91,9 @@
         require: "^sTable",
         template: '<s-row class="s-row-repeat" ng-repeat="model in sModelList" s-row-model="model"><div class="s-ghost-transclude" ng-transclude></div></s-row>',
         controller: function($scope, $element, $attrs) {
+          $scope.sModelList = $scope.$parent.sModelList;
         },
         link: function(scope, element, attributes, sTableCtrl, transclude) {
-          scope.sModelList = sTableCtrl.sModelList;
-          element.replaceWith(element.contents())
         }
       };
     }
@@ -115,8 +119,10 @@
         transclude: true,
         require: "^sRow",
         template: '<td class="s-cell" ng-transclude></td>',
+        controller: function($scope) {
+        },
         link: function(scope, element, attributes, sRowCtrl, transclude) {
-          scope.model = sRowCtrl.sRowModel;
+          scope.model = sRowCtrl.getRowModel();
         }
       };
     }

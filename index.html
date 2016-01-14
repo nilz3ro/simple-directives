@@ -9,25 +9,21 @@
       <s-table class="hover" s-model-list="countries">
         <s-thead>
           <s-row>
-            <s-column>Selected?</s-column>
+            <s-column></s-column>
             <s-column>Name</s-column>
             <s-column>Code</s-column>
             <s-column>Dial</s-column>
+            <s-column>Big button.</s-column>
           </s-row>
         </s-thead>
         <s-tbody>
-          <s-row s-row-model="something">
-            <s-cell>One</s-cell>
-            <s-cell>{{something.foo}}</s-cell>
-            <s-cell>{{model.a}}</s-cell>
-          </s-row>
-          <s-row-repeat>
-            <h1>HI</h1>
+          <s-row ng-repeat="x in sModelList" s-row-model="x">
             <s-cell><input type="checkbox" ng-model="model.selected"></s-cell>
             <s-cell><h4>{{model.name}}</h4></s-cell>
             <s-cell>{{model.code}}</s-cell>
-            <s-cell><p>{{model.Dial}}</p><button ng-click="myAction(model)">Click to alert</button></s-cell>
-          </s-row-repeat>
+            <s-cell><p>{{model.Dial}}</p></s-cell>
+            <s-cell><button ng-disabled="!model.selected" class="button" ng-click="myAction(model)">Click to alert</button></s-cell>
+          </s-row>
         </s-tbody>
       </s-table>
     </section>
