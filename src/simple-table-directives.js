@@ -29,8 +29,10 @@
             $scope.$apply();
           };
         },
+        require: "?sTable",
         controllerAs: 'sTableCtrl',
         link: function(scope, element, attributes, controller, transclude) {
+          console.log(controller)
         }
       };
     }

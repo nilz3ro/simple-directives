@@ -1,0 +1,30 @@
+{
+  "name": "simple-table-directives",
+  "version": "0.2.0",
+  "description": "simple-table-directives",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abuddington/simple-table-directives.git"
+  },
+  "keywords": [
+    "simple",
+    "table",
+    "directives",
+    "angular"
+  ],
+  "author": "abuddington",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abuddington/simple-table-directives/issues"
+  },
+  "homepage": "https://github.com/abuddington/simple-table-directives#readme",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.3.13",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^6.1.1"
+  }
+}
