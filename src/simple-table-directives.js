@@ -113,15 +113,21 @@
         require: "^sTable",
         transclude: true,
         controller: function($scope, $element, $attrs) {
-          $scope.sTableCtrl = $scope.$parent.sTableCtrl;
         },
         template: '<th class="s-column" ng-transclude></th>',
         link: function(scope, element, attributes, controller, transclude) {
           controller.columns.push([element, attributes])
-            var booly = false;
+          var sortOrder = false;
           element.on('click', function(event) {
-            controller.reOrderBy(attributes.sOrderBy, booly);
-            booly = !booly;
+            controller.reOrderBy(attributes.sOrderBy, sortOrder);
+            if(sortOrder) {
+              element.removeClass("descending")
+              element.addClass("ascending")
+            } else {
+              element.removeClass("ascending")
+              element.addClass("descending")
+            }
+            sortOrder = !sortOrder;
           })
         }
       };

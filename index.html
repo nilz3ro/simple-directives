@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html ng-app="ExampleApp">
   <head>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.1.1/foundation-flex.min.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   </head>
   <body ng-controller="ExampleController">
     <section>
       <h1>An example with element directives.</h1>
       <input ng-model="table.$">
-      <s-table class="hover" s-model-list="countries">
+      <s-table class="table table-striped" s-model-list="countries">
         <s-thead>
           <s-row>
             <s-column></s-column>
@@ -21,7 +21,7 @@
           <s-row ng-repeat="m in sModelList  | filter : table.$ | orderBy : sTableCtrl.sOrderBy : sTableCtrl.sOrderReverse" s-row-model="m">
             <s-cell><input type="checkbox" ng-model="model.selected"></s-cell>
             <s-cell><h4>{{model.name}}</h4></s-cell>
-            <s-cell>{{model.code}}</s-cell>
+              <s-cell><h2>{{model.code}}</h2></s-cell>
             <s-cell><p>{{model.Dial}}</p></s-cell>
             <s-cell><button ng-disabled="!model.selected" class="button" ng-click="myAction(model)">Click to alert</button></s-cell>
           </s-row>
