@@ -1,5 +1,4 @@
 (function() {
-  console.log("WTFG")
   angular.module('ExampleApp')
     .value('IsoCountries', {
       all: 
