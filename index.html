@@ -6,18 +6,19 @@
   <body ng-controller="ExampleController">
     <section>
       <h1>An example with element directives.</h1>
+      <input ng-model="table.$">
       <s-table class="hover" s-model-list="countries">
         <s-thead>
           <s-row>
             <s-column></s-column>
-            <s-column>Name</s-column>
-            <s-column>Code</s-column>
-            <s-column>Dial</s-column>
+            <s-column s-order-by="name">Name</s-column>
+            <s-column s-order-by="code">Code</s-column>
+            <s-column s-order-by="Dial">Dial</s-column>
             <s-column>Big button.</s-column>
           </s-row>
         </s-thead>
         <s-tbody>
-          <s-row ng-repeat="m in sModelList" s-row-model="m">
+          <s-row ng-repeat="m in sModelList  | filter : table.$ | orderBy : sTableCtrl.sOrderBy : sTableCtrl.sOrderReverse" s-row-model="m">
             <s-cell><input type="checkbox" ng-model="model.selected"></s-cell>
             <s-cell><h4>{{model.name}}</h4></s-cell>
             <s-cell>{{model.code}}</s-cell>
