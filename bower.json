@@ -5,7 +5,7 @@
     "Austin Buddington <austin.j.buddington@gmail.com>"
   ],
   "description": "Simple and effective table component directives in angular.",
-  "main": "/src/simple-table-directives.js",
+  "main": "./dist/simple-table-directives.js",
   "moduleType": [],
   "keywords": [
     "Angular",
