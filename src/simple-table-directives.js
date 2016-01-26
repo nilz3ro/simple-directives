@@ -138,6 +138,7 @@
         scope: false, 
         replace: true,
         transclude: true,
+        require: ['?sRow', '?sRowRepeat'],
         template: '<td class="s-cell" ng-transclude></td>',
         controller: function($scope, $element, $attrs, $transclude) {
           $scope.model = $scope.$parent.sRowModel || $scope.$parent.model;
