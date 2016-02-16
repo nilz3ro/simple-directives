@@ -88,7 +88,6 @@
       },
       link: function link(scope, element, attributes, controller, transclude) {
         transclude(function (contents, skope) {
-          console.log(element, contents);
           element.append(angular.element('<s-row ng-repeat="model in sTableCtrl.sModelList"></s-row>').append(contents));
         });
         element.replaceWith($compile(element.contents())(scope));
