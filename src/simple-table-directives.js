@@ -32,7 +32,6 @@
         require: "?sTable",
         controllerAs: 'sTableCtrl',
         link: function(scope, element, attributes, controller, transclude) {
-          console.log(controller)
         }
       };
     }
@@ -78,33 +77,30 @@
         },
         transclude: true,
         replace: true,
-        require: "^sTable",
         template: '<tr class="s-row" ng-transclude></tr>',
         controller: function($scope, $element, $attrs, $transclude) {
           $scope.sTableCtrl = $scope.$parent.sTableCtrl;
         },
         link: function(scope, element, attributes, controller, transclude) {
-              if(element.children().hasClass('s-ghost-transclude')) {
-                  element.children().replaceWith(element.children().contents())
-                }
         }
       };
     }
 
-    // TODO refactor this, transclusion scope is weird.
-    function sRowRepeat() {
-      return {
-        restrict: "AE",
-        scope: false,
-        transclude: true, 
-        require: "^sTable",
-        template: '<s-row class="s-row-repeat" ng-repeat="model in sModelList" s-row-model="model"><div class="s-ghost-transclude" ng-transclude></div></s-row>',
-        controller: function($scope, $element, $attrs) {
-          $scope.sModelList = $scope.$parent.sModelList;
-        },
-        link: function(scope, element, attributes, controller, transclude) {
-        }
-      };
+    function sRowRepeat($compile) {
+     return {
+       restrict: "AE",
+       transclude: true,
+       require: "^sTable",
+       controller: function($scope, $element, $attrs, $transclude) {
+         $scope.sTableCtrl = $scope.$parent.sTableCtrl;
+       },
+       link: function(scope, element, attributes, controller, transclude) {
+        transclude(function(contents, skope) {
+          element.append(angular.element('<s-row ng-repeat="model in sTableCtrl.sModelList"></s-row>').append(contents));
+        })
+        element.replaceWith($compile(element.contents())(scope));
+       }
+     }; 
     }
    
     function sColumn() {
@@ -141,10 +137,10 @@
         scope: false, 
         replace: true,
         transclude: true,
-        require: "^sRow",
+        require: ['?sRow', '?sRowRepeat'],
         template: '<td class="s-cell" ng-transclude></td>',
-        controller: function($scope) {
-          $scope.model = $scope.$parent.sRowModel;
+        controller: function($scope, $element, $attrs, $transclude) {
+          $scope.model = $scope.$parent.sRowModel || $scope.$parent.model;
         },
         link: function(scope, element, attributes, sRowCtrl, transclude) {
         }
