@@ -28,6 +28,14 @@
           sTableCtrl.reOrderBy = function(field, reversed) {
             sTableCtrl.sOrderBy = field;
             sTableCtrl.sOrderReverse = reversed;
+
+            sTableCtrl.columns.forEach(function(column) {
+              column.removeClass('ascending');
+              column.removeClass('descending');
+            });
+
+            console.log(sTableCtrl.columns);
+
             $scope.$apply();
           };
         },
@@ -108,7 +116,7 @@
         },
         template: '<th class="s-column" ng-transclude></th>',
         link: function(scope, element, attributes, controller, transclude) {
-          controller.columns.push([element, attributes])
+          controller.columns.push(element);
           var sortOrder = false;
           var hasSortOrder = Boolean(attributes.sOrderBy);
 
@@ -116,11 +124,11 @@
             element.on('click', function(event) {
               controller.reOrderBy(attributes.sOrderBy, sortOrder);
               if(sortOrder) {
-                element.removeClass("descending");
-                element.addClass("ascending");
-              } else {
                 element.removeClass("ascending");
                 element.addClass("descending");
+              } else {
+                element.addClass("ascending");
+                element.removeClass("descending");
               }
               sortOrder = !sortOrder;
             });
