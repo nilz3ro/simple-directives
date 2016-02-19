@@ -1,5 +1,5 @@
 (function() {
-  angular.module('simple-table-directives', [])
+  angular.module('simple-directives.tables', [])
     .directive('sTable', sTable)
     .directive('sThead', sThead)
     .directive('sTbody', sTbody)
@@ -13,7 +13,7 @@
         restrict: "AE",
         scope: {
           sModelList: "="
-        }, 
+        },
         replace: true,
         transclude: true,
         template: '<table class="s-table" ng-transclude></table>',
@@ -22,7 +22,7 @@
           sTableCtrl.sModelList = $scope.sModelList;
           sTableCtrl.columns = [];
           sTableCtrl.testName = "string";
-          
+
           sTableCtrl.reOrderBy = function(field, reversed) {
             sTableCtrl.sOrderBy = field;
             sTableCtrl.sOrderReverse = reversed;
@@ -35,11 +35,11 @@
         }
       };
     }
- 
+
     function sThead() {
       return {
         restrict: "AE",
-        scope: false, 
+        scope: false,
         replace: true,
         transclude: true,
         require: "^sTable",
@@ -52,11 +52,11 @@
         }
       };
     }
-    
+
     function sTbody() {
       return {
         restrict: "AE",
-        scope: false, 
+        scope: false,
         replace: true,
         transclude: true,
         require: "^sTable",
@@ -100,9 +100,9 @@
         })
         element.replaceWith($compile(element.contents())(scope));
        }
-     }; 
+     };
     }
-   
+
     function sColumn() {
       return {
         restrict: "AE",
@@ -130,11 +130,11 @@
         }
       };
     }
-    
+
     function sCell() {
       return {
         restrict: "AE",
-        scope: false, 
+        scope: false,
         replace: true,
         transclude: true,
         require: ['?sRow', '?sRowRepeat'],

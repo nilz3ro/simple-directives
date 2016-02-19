@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  angular.module('simple-table-directives', []).directive('sTable', sTable).directive('sThead', sThead).directive('sTbody', sTbody).directive('sRow', sRow).directive('sRowRepeat', sRowRepeat).directive('sColumn', sColumn).directive('sCell', sCell);
+  angular.module('simple-directives.tables', []).directive('sTable', sTable).directive('sThead', sThead).directive('sTbody', sTbody).directive('sRow', sRow).directive('sRowRepeat', sRowRepeat).directive('sColumn', sColumn).directive('sCell', sCell);
 
   function sTable($q) {
     return {
@@ -136,4 +136,9 @@
       link: function link(scope, element, attributes, sRowCtrl, transclude) {}
     };
   }
+})();
+'use strict';
+
+(function () {
+  angular.module('simple-directives', ['simple-directives.tables']);
 })();

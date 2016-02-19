@@ -18,21 +18,21 @@
           </s-row>
         </s-thead>
         <s-tbody>
-          <s-row-repeat>
+          <s-row ng-repeat="country in sTableCtrl.sModelList | filter:table.$ | orderBy: sTableCtrl.sOrderBy : sTableCtrl.sOrderReverse " s-row-model="country">
             <s-cell><input type="checkbox" ng-model="model.selected"></s-cell>
             <s-cell><h4>{{model.name}}</h4></s-cell>
             <s-cell><h2>{{model.code}}</h2></s-cell>
             <s-cell><p>{{model.Dial}}</p></s-cell>
             <s-cell><button ng-disabled="!model.selected" class="button" ng-click="myAction(model)">Click to alert</button></s-cell>
-          </s-row-repeat>
+          </s-row>
         </s-tbody>
       </s-table>
     </section>
-    <script type="application/javascript" src="./src/bower_components/angular/angular.js"></script>
-    <script type="application/javascript" src="./dist/simple-table-directives.js"></script>
-    <script type="application/javascript" src="./src/example-app.js"></script>
-    <script type="application/javascript" src="./src/example-controller.js"></script>
-    <script type="application/javascript" src="./src/iso-countries.js"></script>
+    <script type="application/javascript" src="../bower_components/angular/angular.js"></script>
+    <script type="application/javascript" src="../build/simple-directives.js"></script>
+    <script type="application/javascript" src="./example-app.js"></script>
+    <script type="application/javascript" src="./example-controller.js"></script>
+    <script type="application/javascript" src="./iso-countries.js"></script>
   </body>
 </html>
 
