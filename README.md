@@ -1,7 +1,7 @@
-# simple-table-directives
-Simple and effective table component directives in angular.
+# simple-directives
+Simple and effective web components for angular.
 
 ### Install
-- ```bower install --save simple-table-directives```
+- ```bower install --save simple-directives```
 - Add to your angular app.
-  ```<script type="application/javascript" src="./bower_components/simple-table-directives/dist/simple-table-directives.js"></script>```
+  ```<script type="application/javascript" src="./bower_components/simple-directives/dist/simple-directives.js"></script>```
