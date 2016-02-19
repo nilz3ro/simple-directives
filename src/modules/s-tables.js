@@ -1,4 +1,6 @@
 (function() {
+  'use strict';
+
   angular.module('simple-directives.tables', [])
     .directive('sTable', sTable)
     .directive('sThead', sThead)
@@ -30,9 +32,7 @@
           };
         },
         require: "?sTable",
-        controllerAs: 'sTableCtrl',
-        link: function(scope, element, attributes, controller, transclude) {
-        }
+        controllerAs: 'sTableCtrl'
       };
     }
 
@@ -47,9 +47,7 @@
           $scope.sModelList = $scope.$parent.sModelList;
           $scope.sTableCtrl = $scope.$parent.sTableCtrl;
         },
-        template: '<thead class="s-thead" ng-transclude></thead>',
-        link: function(scope, element, attributes, controller, transclude) {
-        }
+        template: '<thead class="s-thead" ng-transclude></thead>'
       };
     }
 
@@ -63,9 +61,7 @@
         controller: function($scope, $element, $attrs) {
           $scope.sModelList = $scope.$parent.sModelList;
         },
-        template: '<tbody class="s-tbody" ng-transclude></tbody>',
-        link: function(scope, element, attributes, controller, transclude) {
-        }
+        template: '<tbody class="s-tbody" ng-transclude></tbody>'
       };
     }
 
@@ -80,8 +76,6 @@
         template: '<tr class="s-row" ng-transclude></tr>',
         controller: function($scope, $element, $attrs, $transclude) {
           $scope.sTableCtrl = $scope.$parent.sTableCtrl;
-        },
-        link: function(scope, element, attributes, controller, transclude) {
         }
       };
     }
@@ -97,7 +91,7 @@
        link: function(scope, element, attributes, controller, transclude) {
         transclude(function(contents, skope) {
           element.append(angular.element('<s-row ng-repeat="model in sTableCtrl.sModelList"></s-row>').append(contents));
-        })
+        });
         element.replaceWith($compile(element.contents())(scope));
        }
      };
@@ -116,17 +110,21 @@
         link: function(scope, element, attributes, controller, transclude) {
           controller.columns.push([element, attributes])
           var sortOrder = false;
-          element.on('click', function(event) {
-            controller.reOrderBy(attributes.sOrderBy, sortOrder);
-            if(sortOrder) {
-              element.removeClass("descending")
-              element.addClass("ascending")
-            } else {
-              element.removeClass("ascending")
-              element.addClass("descending")
-            }
-            sortOrder = !sortOrder;
-          })
+          var hasSortOrder = Boolean(attributes.sOrderBy);
+
+          if(hasSortOrder) {
+            element.on('click', function(event) {
+              controller.reOrderBy(attributes.sOrderBy, sortOrder);
+              if(sortOrder) {
+                element.removeClass("descending");
+                element.addClass("ascending");
+              } else {
+                element.removeClass("ascending");
+                element.addClass("descending");
+              }
+              sortOrder = !sortOrder;
+            });
+          }
         }
       };
     }
@@ -141,10 +139,7 @@
         template: '<td class="s-cell" ng-transclude></td>',
         controller: function($scope, $element, $attrs, $transclude) {
           $scope.model = $scope.$parent.sRowModel || $scope.$parent.model;
-        },
-        link: function(scope, element, attributes, sRowCtrl, transclude) {
         }
       };
     }
 })();
-
