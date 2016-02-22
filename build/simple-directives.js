@@ -10,7 +10,7 @@
     .directive('sColumn', sColumn)
     .directive('sCell', sCell);
 
-    function sTable($q) {
+    function sTable() {
       return {
         restrict: "AE",
         scope: {
