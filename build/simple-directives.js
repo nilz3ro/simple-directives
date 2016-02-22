@@ -19,7 +19,7 @@
         replace: true,
         transclude: true,
         template: '<table class="s-table" ng-transclude></table>',
-        controller($scope, $element, $attrs) {
+        controller: function ($scope, $element, $attrs) {
           var sTableCtrl = this;
           sTableCtrl.sModelList = $scope.sModelList;
           sTableCtrl.columns = [];
@@ -33,8 +33,6 @@
               column.removeClass('ascending');
               column.removeClass('descending');
             });
-
-            console.log(sTableCtrl.columns);
 
             $scope.$apply();
           };
