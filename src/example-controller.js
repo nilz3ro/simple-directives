@@ -6,6 +6,12 @@
       $scope.myAction = function(m) {
         alert(m.name);
       };
+
+      $scope.exampleCallback = function(field, order) {
+        console.group('callback fired');
+        console.log('field:', field);
+        console.log('order', order);
+        console.groupEnd('callback fired');
+      };
     }
 })();
-

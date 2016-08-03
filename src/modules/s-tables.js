@@ -12,43 +12,50 @@
 
     function sTable() {
       return {
-        restrict: "AE",
+        restrict: 'E',
         scope: {
-          sModelList: "="
+          sModelList: '=',
+          onSortChange: '&'
         },
         replace: true,
         transclude: true,
         template: '<table class="s-table" ng-transclude></table>',
         controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
-          var sTableCtrl = this;
-          sTableCtrl.sModelList = $scope.sModelList;
-          sTableCtrl.columns = [];
-          sTableCtrl.testName = "string";
+          this.sModelList = $scope.sModelList;
+          this.columns = [];
+          this.testName = "string";
 
-          sTableCtrl.reOrderBy = function(field, reversed) {
-            sTableCtrl.sOrderBy = field;
-            sTableCtrl.sOrderReverse = reversed;
+          this.reOrderBy = function(field, reversed) {
+            var orderTranslations = {
+              false: 'asc',
+              true: 'desc'
+            };
 
-            sTableCtrl.columns.forEach(function(column) {
+            this.sOrderBy = field;
+            this.sOrderReverse = reversed;
+
+            this.columns.forEach(function(column) {
               column.removeClass('ascending');
               column.removeClass('descending');
             });
 
             $scope.$apply();
+
+            return this.onSortChange && this.onSortChange(field, orderTranslations[reversed]);
           };
         }],
-        require: "?sTable",
+        require: '?sTable',
         controllerAs: 'sTableCtrl'
       };
     }
 
     function sThead() {
       return {
-        restrict: "AE",
+        restrict: 'E',
         scope: false,
         replace: true,
         transclude: true,
-        require: "^sTable",
+        require: '^sTable',
         controller: ['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
           $scope.sModelList = $scope.$parent.sModelList;
           $scope.sTableCtrl = $scope.$parent.sTableCtrl;
@@ -59,11 +66,11 @@
 
     function sTbody() {
       return {
-        restrict: "AE",
+        restrict: 'E',
         scope: false,
         replace: true,
         transclude: true,
-        require: "^sTable",
+        require: '^sTable',
         controller: ['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
           $scope.sModelList = $scope.$parent.sModelList;
         }],
@@ -73,7 +80,7 @@
 
     function sRow() {
       return {
-        restrict: "AE",
+        restrict: 'E',
         scope: {
           sRowModel: '='
         },
@@ -88,9 +95,9 @@
 
     function sRowRepeat($compile) {
      return {
-       restrict: "AE",
+       restrict: 'E',
        transclude: true,
-       require: "^sTable",
+       require: '^sTable',
        controller: ['$scope', '$element', '$attrs', '$transclude', function($scope, $element, $attrs, $transclude) {
          $scope.sTableCtrl = $scope.$parent.sTableCtrl;
        }],
@@ -105,10 +112,10 @@
 
     function sColumn() {
       return {
-        restrict: "AE",
+        restrict: 'E',
         scope: false,
         replace: true,
-        require: "^sTable",
+        require: '^sTable',
         transclude: true,
         controller: ['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
         }],
@@ -116,17 +123,16 @@
         link: function(scope, element, attributes, controller, transclude) {
           controller.columns.push(element);
           var sortOrder = false;
-          var hasSortOrder = Boolean(attributes.sOrderBy);
 
-          if(hasSortOrder) {
+          if(attributes.sOrderBy) {
             element.on('click', function(event) {
               controller.reOrderBy(attributes.sOrderBy, sortOrder);
               if(sortOrder) {
-                element.removeClass("ascending");
-                element.addClass("descending");
+                element.removeClass('ascending');
+                element.addClass('descending');
               } else {
-                element.addClass("ascending");
-                element.removeClass("descending");
+                element.addClass('ascending');
+                element.removeClass('descending');
               }
               sortOrder = !sortOrder;
             });
@@ -137,7 +143,7 @@
 
     function sCell() {
       return {
-        restrict: "AE",
+        restrict: 'E',
         scope: false,
         replace: true,
         transclude: true,

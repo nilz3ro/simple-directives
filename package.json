@@ -4,6 +4,8 @@
   "description": "simple-table-directives",
   "main": "index.js",
   "scripts": {
+    "start": "http-server .",
+    "build": "gulp",
     "test": "npm test"
   },
   "repository": {
