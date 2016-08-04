@@ -15,15 +15,16 @@
         restrict: 'E',
         scope: {
           sModelList: '=',
-          onSortChange: '&'
+          onSortChange: '='
         },
         replace: true,
         transclude: true,
         template: '<table class="s-table" ng-transclude></table>',
         controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
+          var _this = this;
           this.sModelList = $scope.sModelList;
+          this.onSortChange = $scope.onSortChange;
           this.columns = [];
-          this.testName = "string";
 
           this.reOrderBy = function(field, reversed) {
             var orderTranslations = {
@@ -31,17 +32,17 @@
               true: 'desc'
             };
 
-            this.sOrderBy = field;
-            this.sOrderReverse = reversed;
+            _this.sOrderBy = field;
+            _this.sOrderReverse = reversed;
 
-            this.columns.forEach(function(column) {
+            _this.columns.forEach(function(column) {
               column.removeClass('ascending');
               column.removeClass('descending');
             });
 
             $scope.$apply();
-
-            return this.onSortChange && this.onSortChange(field, orderTranslations[reversed]);
+            console.log(_this.onSortChange);
+            return _this.onSortChange && _this.onSortChange(field, orderTranslations[reversed]);
           };
         }],
         require: '?sTable',
