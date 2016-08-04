@@ -22,11 +22,11 @@
         template: '<table class="s-table" ng-transclude></table>',
         controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
           var _this = this;
-          this.sModelList = $scope.sModelList;
-          this.onSortChange = $scope.onSortChange;
-          this.columns = [];
+          _this.sModelList   = $scope.sModelList;
+          _this.onSortChange = $scope.onSortChange;
+          _this.columns      = [];
 
-          this.reOrderBy = function(field, reversed) {
+          _this.reOrderBy = function(field, reversed) {
             var orderTranslations = {
               false: 'asc',
               true: 'desc'
@@ -41,8 +41,7 @@
             });
 
             $scope.$apply();
-            console.log(_this.onSortChange);
-            return _this.onSortChange && _this.onSortChange(field, orderTranslations[reversed]);
+            return (_this.onSortChange || angular.noop)(field, orderTranslations[reversed]);
           };
         }],
         require: '?sTable',
