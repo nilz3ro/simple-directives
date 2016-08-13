@@ -22,31 +22,52 @@
         replace: true,
         transclude: true,
         template: '<table class="s-table" ng-transclude></table>',
-        controller: ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
-          var _this               = this;
-          _this.defaultSortOrder  = _this.defaultSortOrder || 'asc';
-          _this.columns           = [];
-          _this.orderTranslations = {
-            asc: false,
-            desc: true,
-            false: 'asc',
-            true: 'desc'
-          };
+        controller: ['$scope', '$element', '$attrs', '$rootScope', function ($scope, $element, $attrs, $rootScope) {
+          var _this = this;
 
-          _this.reOrderBy = function(field, reversed) {
-            _this.sOrderBy = field;
-            _this.sOrderReverse = reversed;
+          $rootScope.$on('s-table:ready', function() {
+            if(_this.defaultSortKey) {
+              _this.applyOrder(_this.defaultSortKey, _this.orderTranslations[_this.defaultSortOrder]);
+            }
+          });
 
-            _this.columns.forEach(function(column) {
-              return column.removeOrderClasses();
-            });
+          function initialize() {
+            _this.defaultSortOrder  = _this.defaultSortOrder || 'asc';
+            _this.columns           = [];
+            _this.orderTranslations = {
+              asc: false,
+              desc: true,
+              false: 'asc',
+              true: 'desc'
+            };
 
-            return (_this.onSortChange || angular.noop)(field, _this.orderTranslations[reversed]);
-          };
+            _this.registerColumn = function(column) {
+              _this.columns.push(column);
+            };
 
-          if(_this.defaultSortKey) {
-            _this.reOrderBy(_this.defaultSortKey, _this.orderTranslations[_this.defaultSortOrder]);
+            _this.applyOrder = function(field, reversed) {
+              console.log(_this.columns.length, 'l');
+              _this.sOrderBy = field;
+              _this.sOrderReverse = reversed;
+
+              _this.columns.forEach(function(column) {
+                column.removeOrderClasses();
+                if(column.sOrderBy === field) {
+                  column.addOrderClass(_this.orderTranslations[reversed] + 'ending');
+                }
+              });
+
+              return (_this.onSortChange || angular.noop)(field, _this.orderTranslations[reversed]);
+            };
           }
+
+          $scope.$watchCollection('sTableCtrl.columns', function(newState, oldState) {
+            if(newState.length === oldState.length) {
+              $rootScope.$broadcast('s-table:ready');
+            }
+          });
+
+          initialize();
         }],
         require: '?sTable',
         controllerAs: 'sTableCtrl'
@@ -100,15 +121,17 @@
     function sColumn() {
       return {
         restrict: 'E',
-        scope: false,
+        scope: {
+          sOrderBy: '@'
+        },
         replace: true,
         bindToController: true,
         require: '^sTable',
         transclude: true,
-        controllerAs: 'sColumnController',
+        controllerAs: 'sColumnCtrl',
         controller: ['$scope', '$element', '$attrs', function($scope, $element, $attrs) {
           var _this = this;
-
+          _this.sortOrder = false;
           _this.removeOrderClasses = function() {
             $element.removeClass('ascending');
             $element.removeClass('descending');
@@ -117,23 +140,23 @@
           _this.addOrderClass = function(className) {
             $element.addClass(className);
           };
+
+          _this.toggleSortOrder = function() {
+            return _this.sortOrder = !_this.sortOrder;
+          };
+
+          _this.handleClick = function(e, onClick) {
+            e.preventDefault();
+            return onClick(_this.sOrderBy, _this.toggleSortOrder());
+          };
         }],
         template: '<th class="s-column" ng-transclude></th>',
         link: function(scope, element, attributes, controller, transclude) {
-          controller.columns.push(scope.sColumnController);
-          var sortOrder = false;
+          controller.registerColumn(scope.sColumnCtrl);
 
           if(attributes.sOrderBy) {
-            element.on('click', function(event) {
-              controller.reOrderBy(attributes.sOrderBy, sortOrder);
-              if(sortOrder) {
-                element.removeClass('ascending');
-                element.addClass('descending');
-              } else {
-                element.addClass('ascending');
-                element.removeClass('descending');
-              }
-              sortOrder = !sortOrder;
+            element.on('click', function(e) {
+              return scope.sColumnCtrl.handleClick(e, controller.applyOrder);
             });
           }
         }

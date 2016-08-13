@@ -1,13 +1,16 @@
 (function() {
   angular.module('ExampleApp')
     .controller('ExampleController', ExampleController);
-    function ExampleController($scope, IsoCountries) {
+
+    ExampleController.$inject = ['$scope', '$rootScope', 'IsoCountries'];
+
+    function ExampleController($scope, $rootScope, IsoCountries) {
       $scope.countries = IsoCountries.all;
       $scope.myAction = function(m) {
         alert(m.name);
       };
 
-      $scope.defaultKey = 'Dial';
+      $scope.defaultKey = 'code';
       $scope.defaultOrder = 'desc';
       $scope.exampleCallback = function(field, order) {
         console.group('callback fired');
@@ -15,5 +18,9 @@
         console.log('order', order);
         console.groupEnd('callback fired');
       };
+
+      $rootScope.$on('sTable.ready', function(e) {
+        console.log('Event Fired:', e);
+      });
     }
 })();
