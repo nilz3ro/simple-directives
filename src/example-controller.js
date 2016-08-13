@@ -7,6 +7,8 @@
         alert(m.name);
       };
 
+      $scope.defaultKey = 'Dial';
+      $scope.defaultOrder = 'desc';
       $scope.exampleCallback = function(field, order) {
         console.group('callback fired');
         console.log('field:', field);

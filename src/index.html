@@ -7,7 +7,12 @@
     <section>
       <h1>An example with element directives.</h1>
       <input ng-model="table.$">
-      <s-table on-sort-change="exampleCallback" class="table table-striped" s-model-list="countries">
+      <s-table
+        on-sort-change="exampleCallback"
+        class="table table-striped"
+        s-model-list="countries"
+        default-sort-key="defaultKey"
+        default-sort-order="defaultOrder">
         <s-thead>
           <s-row>
             <s-column></s-column>
