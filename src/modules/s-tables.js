@@ -36,7 +36,6 @@
           };
 
           $rootScope.$on('s-table:ready', function() {
-            console.log('from event', _this.defaultSortKey, _this.defaultSortOrder);
             if(_this.defaultSortKey) {
               _this.applyOrder(_this.defaultSortKey, _this.orderTranslations[_this.defaultSortOrder]);
             }
@@ -60,13 +59,11 @@
             try {
               $scope.$apply();
             } catch(e) {
-              console.log('from apply', e);
             }
             return (_this.onSortChange || angular.noop)(field, _this.orderTranslations[reversed]);
           };
 
           $scope.$watchCollection('sTableCtrl.columns', function(newState, oldState) {
-            console.log(newState, oldState);
             if(newState.length === oldState.length) {
               $rootScope.$broadcast('s-table:ready');
             }
