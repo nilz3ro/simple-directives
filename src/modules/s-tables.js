@@ -46,7 +46,6 @@
             };
 
             _this.applyOrder = function(field, reversed) {
-              console.log(_this.columns.length, 'l');
               _this.sOrderBy = field;
               _this.sOrderReverse = reversed;
 
