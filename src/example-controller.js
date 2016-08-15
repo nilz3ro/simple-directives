@@ -18,9 +18,5 @@
         console.log('order', order);
         console.groupEnd('callback fired');
       };
-
-      $rootScope.$on('sTable.ready', function(e) {
-        console.log('Event Fired:', e);
-      });
     }
 })();
