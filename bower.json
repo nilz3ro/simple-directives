@@ -2,14 +2,12 @@
   "name": "simple-directives",
   "homepage": "https://github.com/abuddington/simple-directives",
   "authors": [
-    "Austin Buddington <austin.j.buddington@gmail.com>"
   ],
-  "description": "Simple and effective table component directives in angular.",
-  "main": "./dist/simple-table-directives.js",
+  "description": "Simple and effective component directives in angular.",
+  "main": "./dist/simple-directives.js",
   "moduleType": [],
   "keywords": [
     "Angular",
-    "Table",
     "Directives"
   ],
   "license": "MIT",

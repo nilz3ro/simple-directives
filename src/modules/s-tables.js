@@ -56,10 +56,6 @@
               }
             });
 
-            try {
-              $scope.$apply();
-            } catch(e) {
-            }
             return (_this.onSortChange || angular.noop)(field, _this.orderTranslations[reversed]);
           };
 
