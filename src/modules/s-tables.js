@@ -21,7 +21,7 @@
         replace: true,
         transclude: true,
         template: '<table class="s-table" ng-transclude></table>',
-        controller: ['$scope', '$element', '$attrs', '$rootScope', function ($scope, $element, $attrs, $rootScope) {
+        controller: ['$scope', '$element', '$attrs', '$rootScope', '$timeout', function ($scope, $element, $attrs, $rootScope, $timeout) {
           var _this = this;
           _this.sModelList        = $scope.sModelList;
           _this.onSortChange      = $scope.onSortChange;
@@ -56,7 +56,11 @@
               }
             });
 
-            return (_this.onSortChange || angular.noop)(field, _this.orderTranslations[reversed]);
+            (_this.onSortChange || angular.noop)(field, _this.orderTranslations[reversed]);
+
+            $timeout(function () {
+              $scope.$digest();
+            });
           };
 
           $scope.$watchCollection('sTableCtrl.columns', function(newState, oldState) {
