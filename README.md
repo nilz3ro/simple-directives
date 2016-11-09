@@ -1,6 +1,8 @@
 # simple-directives
 __A refreshingly simple, declarative directive library for Angular.__
 
+[![JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
+
 ## Install
 To install `simple-directives` you'll need to have `bower` installed globally with `npm`.
 ```
