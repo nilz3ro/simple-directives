@@ -1,6 +1,7 @@
 /* global angular */
-
-angular
-  .module('simple-directives', [
-    'simple-directives.tables'
-  ])
+(function () {
+  angular
+    .module('simple-directives', [
+      'simple-directives.tables'
+    ])
+})()

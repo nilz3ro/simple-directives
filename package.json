@@ -28,7 +28,8 @@
     "babel-preset-es2015": "^6.3.13",
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.1",
-    "gulp-concat": "^2.6.0",
+    "gulp-concat-util": "^0.5.5",
+    "http-server": "^0.9.0",
     "standard": "^8.5.0"
   },
   "standard": {
