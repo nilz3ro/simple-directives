@@ -6,7 +6,8 @@ gulp.task('default', ['build:js'])
 
 gulp.task('build:js', function () {
   gulp.src('./src/modules/*.js')
-    .pipe(concat('simple-directives.js', { sep: ';' }))
+    .pipe(concat('simple-directives.js', {sep: ';'}))
+    .pipe(concat.footer(';'))
     .pipe(gulp.dest('./dist'))
 
   gulp.src('./LICENSE')
