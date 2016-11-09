@@ -20,4 +20,4 @@
       console.groupEnd('callback fired')
     }
   }
-}())
+})()

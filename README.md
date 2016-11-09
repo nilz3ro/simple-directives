@@ -1,5 +1,5 @@
 # simple-directives
-A refreshingly simple, declarative directive library for angular.
+__A refreshingly simple, declarative directive library for Angular.__
 
 ## Install
 To install `simple-directives` you'll need to have `bower` installed globally with `npm`.
@@ -32,13 +32,17 @@ Once you've added a script tag, or bundled `simple-directives.js`, you can use i
 (function() {
   angular.module('ExampleApp', [
       'simple-directives'
-    ]);
-})();
+    ])
+})()
 ```
 
 Here's an example of how to build a flexible, declarative table.
 ```html
-<s-table s-model-list="vm.myFavoriteActors" on-sort-change="vm.doStuff">
+<s-table
+  s-model-list="ActorsController.myFavoriteActors"
+  default-sort-key="vm.defaultSortKey"
+  default-sort-order="vm.defaultSortOrder"
+  on-sort-change="vm.doStuff">
   <s-thead>
     <s-row>
       <s-column s-order-by="name">Name</s-column>
@@ -56,4 +60,4 @@ Here's an example of how to build a flexible, declarative table.
 </s-table>
 ```
 
-Made with precision by @nilz3ro
+Made with precision by [@nilz3ro](https://github.com/nilz3ro).
