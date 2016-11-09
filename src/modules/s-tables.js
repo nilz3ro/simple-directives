@@ -35,12 +35,6 @@
             true: 'desc'
           };
 
-          $rootScope.$on('s-table:ready', function() {
-            if(_this.defaultSortKey) {
-              _this.applyOrder(_this.defaultSortKey, _this.orderTranslations[_this.defaultSortOrder]);
-            }
-          });
-
           _this.registerColumn = function(column) {
             _this.columns.push(column);
           };
@@ -65,7 +59,9 @@
 
           $scope.$watchCollection('sTableCtrl.columns', function(newState, oldState) {
             if(newState.length === oldState.length) {
-              $rootScope.$broadcast('s-table:ready');
+              if(_this.defaultSortKey) {
+                _this.applyOrder(_this.defaultSortKey, _this.orderTranslations[_this.defaultSortOrder]);
+              }
             }
           });
         }],
