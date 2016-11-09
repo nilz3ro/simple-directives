@@ -1,8 +1,9 @@
-(function() {
-  'use strict';
+/* global angular */
+(function () {
+  'use strict'
 
   angular
     .module('simple-directives', [
-        'simple-directives.tables'
-      ]);
-})();
+      'simple-directives.tables'
+    ])
+}())

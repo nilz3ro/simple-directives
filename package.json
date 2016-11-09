@@ -6,7 +6,7 @@
   "scripts": {
     "start": "http-server .",
     "build": "gulp",
-    "test": "npm test"
+    "test": "standard"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,13 @@
     "babel-preset-es2015": "^6.3.13",
     "gulp": "^3.9.0",
     "gulp-babel": "^6.1.1",
-    "gulp-concat": "^2.6.0"
+    "gulp-concat": "^2.6.0",
+    "standard": "^8.5.0"
+  },
+  "standard": {
+    "ignore": [
+      "src/iso-countries.js",
+      "dist/*"
+    ]
   }
 }
