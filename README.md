@@ -4,16 +4,13 @@
 [![JavaScript Style Guide](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 [![NPM](https://nodei.co/npm/simple-directives.png)](https://nodei.co/npm/simple-directives/)
 ## Install
-To install `simple-directives` you'll need to have `bower` installed globally with `npm`.
 ```
-npm install -g bower
-```
-Then, you can use bower to install `simple-directives`.
-```
+npm install --save simple-directives
 bower install --save simple-directives
+yarn add simple-directives
 ```
 Once you've done that, you'll have a copy of `simple-directives` in your project's
-`bower_components` directory.
+`bower_components` or `node_modules` directory.
 
 ## Include
 The easiest way to use `simple-directives` in your project is by including it with
