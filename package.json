@@ -1,8 +1,8 @@
 {
-  "name": "simple-table-directives",
-  "version": "0.2.0",
-  "description": "simple-table-directives",
-  "main": "index.js",
+  "name": "simple-directives",
+  "version": "1.0.3",
+  "description": "A declarative directive library for angular.",
+  "main": "dist/simple-directives.js",
   "scripts": {
     "start": "http-server .",
     "build": "gulp",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/abuddington/simple-table-directives.git"
+    "url": "git+https://github.com/nilz3ro/simple-directives.git"
   },
   "keywords": [
     "simple",
@@ -18,12 +18,12 @@
     "directives",
     "angular"
   ],
-  "author": "abuddington",
+  "author": "nilz3ro",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/abuddington/simple-table-directives/issues"
+    "url": "https://github.com/nilz3ro/simple-directives/issues"
   },
-  "homepage": "https://github.com/abuddington/simple-table-directives#readme",
+  "homepage": "https://github.com/nilz3ro/simple-directives#readme",
   "devDependencies": {
     "babel-preset-es2015": "^6.3.13",
     "gulp": "^3.9.0",
@@ -37,5 +37,8 @@
       "src/iso-countries.js",
       "dist/*"
     ]
+  },
+  "dependencies": {
+    "angular": "1.5.0"
   }
 }
